@@ -91,8 +91,6 @@ flutter run
 - Rojo: "Vencida" (ya pasó la fecha)
 - Azul: "Pospuesta hasta [fecha]" (cuando existe snoozedUntil)
 
-## 📄 Licencia
-Este proyecto está licenciado bajo [especificar licencia] - consulta el archivo `LICENSE` para más detalles.
 
 ---
 
