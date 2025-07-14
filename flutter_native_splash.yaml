@@ -1,0 +1,25 @@
+flutter_native_splash:
+  # Blanco suave que combina con la imagen
+  color: "#f8f8f8"  # Un blanco ligeramente grisáceo
+  image: assets/images/splahs.png
+  # Reducir el tamaño de la imagen a 70% del original
+  image_dark: assets/images/splahs.png
+  color_dark: "#f8f8f8"
+  android: true
+  ios: true
+  
+  # Configuración adicional para mejorar la apariencia
+  fullscreen: true
+  
+  android_12:
+    image: assets/images/splahs.png
+    # Color de fondo para Android 12
+    icon_background_color: "#f8f8f8"
+    
+  # Configuración para centrar la imagen (esto ayuda a que se vea mejor)
+  android_gravity: center
+  ios_content_mode: center
+  
+  # Tamaño personalizado para la imagen (se mantiene el aspecto pero se reduce)
+  # El parámetro no funciona directamente, pero la configuración de gravedad y modo de contenido ayuda
+  # a que la imagen se vea mejor centrada en la pantalla
