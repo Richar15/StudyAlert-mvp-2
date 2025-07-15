@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "tipoActividad": "Protocolo individual unidad 2",
+    "asignatura": "Desarrollo de Apps",
+    "fechaVencimiento": "2025-07-16T23:59:00",
+    "tiempoRestante": "1 día",
+    "estado": "pendiente",
+    "enlace": "https://sima.unicartagena.edu.co/login/index.php"
+  },
+  {
+    "id": 2,
+    "tipoActividad": "Protocolo colaborativo unidad 2",
+    "asignatura": "Programación en Python",
+    "fechaVencimiento": "2025-07-18T20:00:00",
+    "tiempoRestante": "3 días",
+    "estado": "pendiente",
+    "enlace": "https://sima.unicartagena.edu.co/login/index.php"
+  },
+  {
+    "id": 3,
+    "tipoActividad": "Actividad de aprendizaje unidad 2",
+    "asignatura": "Sistemas Operativos",
+    "fechaVencimiento": "2025-07-21T10:00:00",
+    "tiempoRestante": "6 días",
+    "estado": "pendiente",
+    "enlace": "https://sima.unicartagena.edu.co/login/index.php"
+  },
+  {
+    "id": 4,
+    "tipoActividad": "Evaluación final unidad 2",
+    "asignatura": "Redes de Computadoras",
+    "fechaVencimiento": "2025-07-24T15:00:00",
+    "tiempoRestante": "9 días",
+    "estado": "pendiente",
+    "enlace": "https://sima.unicartagena.edu.co/login/index.php"
+  },
+  {
+    "id": 5,
+    "tipoActividad": "Actividad de presaber unidad 3",
+    "asignatura": "Investigación de Operaciones",
+    "fechaVencimiento": "2025-07-27T08:00:00",
+    "tiempoRestante": "12 días",
+    "estado": "pendiente",
+    "enlace": "https://sima.unicartagena.edu.co/login/index.php"
+  },
+  {
+    "id": 6,
+    "tipoActividad": "Foro temático unidad 3",
+    "asignatura": "Organización de Computadores",
+    "fechaVencimiento": "2025-08-01T18:00:00",
+    "tiempoRestante": "17 días",
+    "estado": "pendiente",
+    "enlace": "https://sima.unicartagena.edu.co/login/index.php"
+  },
+  {
+    "id": 7,
+    "tipoActividad": "Trabajo colaborativo contextualizado unidad 3",
+    "asignatura": "Desarrollo de Apps",
+    "fechaVencimiento": "2025-08-05T23:59:00",
+    "tiempoRestante": "21 días",
+    "estado": "pendiente",
+    "enlace": "https://sima.unicartagena.edu.co/login/index.php"
+  },
+  {
+    "id": 8,
+    "tipoActividad": "Evaluación final unidad 3",
+    "asignatura": "Sistemas Operativos",
+    "fechaVencimiento": "2025-08-09T16:00:00",
+    "tiempoRestante": "25 días",
+    "estado": "pendiente",
+    "enlace": "https://sima.unicartagena.edu.co/login/index.php"
+  },
+  {
+    "id": 9,
+    "tipoActividad": "Protocolo colaborativo unidad 3",
+    "asignatura": "Redes de Computadoras",
+    "fechaVencimiento": "2025-08-12T09:30:00",
+    "tiempoRestante": "28 días",
+    "estado": "pendiente",
+    "enlace": "https://sima.unicartagena.edu.co/login/index.php"
+  },
+  {
+    "id": 10,
+    "tipoActividad": "Protocolo individual unidad 3",
+    "asignatura": "Programación en Python",
+    "fechaVencimiento": "2025-08-18T23:59:00",
+    "tiempoRestante": "34 días",
+    "estado": "pendiente",
+    "enlace": "https://sima.unicartagena.edu.co/login/index.php"
+  }
+]

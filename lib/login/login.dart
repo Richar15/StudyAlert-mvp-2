@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:studyalert_mvp_2/task/task_list.dart';
+import 'package:studyalert_mvp_2/task/task_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -92,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const HomeScreen(),
+          builder: (context) => const TaskScreen(),
         ),
       );
     } else {
@@ -128,7 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const HomeScreen(),
+            builder: (context) => const TaskScreen(),
           ),
         );
       } else {
