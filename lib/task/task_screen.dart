@@ -2,11 +2,12 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:studyalert_mvp_2/login/login.dart';
+import 'package:studyalert_mvp_2/pet/run_logic_pet.dart';
 import 'package:studyalert_mvp_2/task/pomodoro_screen.dart';
 import 'package:studyalert_mvp_2/task/task_card.dart';
 import 'package:studyalert_mvp_2/task/task_model.dart';
-import 'package:studyalert_mvp_2/main.dart';
 import 'package:studyalert_mvp_2/task/workflow_screen.dart';
+
 
 class TaskScreen extends StatefulWidget {
   const TaskScreen({super.key});
@@ -64,12 +65,73 @@ class _TaskScreenState extends State<TaskScreen> {
   @override
   Widget build(BuildContext context) {
     final semanas = tareasPorSemana.keys.toList()..sort();
+
+    // Determinar la longitud del TabController y los contenidos de TabBar/TabBarView
+    final int tabControllerLength = semanas.isEmpty ? 1 : semanas.length;
+
+    List<Widget> tabs;
+    List<Widget> tabBarViews;
+
+    if (semanas.isEmpty) {
+      // Si no hay tareas, mostrar una sola pestaña y un mensaje
+      tabs = [
+        const Tab(text: 'Sin Tareas'),
+      ];
+      tabBarViews = [
+        const Center(
+          child: Text(
+            "¡Tiempo libre! No hay tareas pendientes esta semana.",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              color: Colors.black54,
+              shadows: [
+                Shadow(
+                  offset: Offset(0, 1),
+                  blurRadius: 3,
+                  color: Colors.black26,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ];
+    } else {
+      // Si hay tareas, construir las pestañas y vistas normalmente
+      tabs = semanas.map((semana) {
+        String tabText;
+        if (semana == 1) {
+          tabText = 'Esta Semana';
+        } else if (semana == 2) {
+          tabText = 'Próxima Semana';
+        } else {
+          tabText = 'Semana $semana';
+        }
+        return Tab(text: tabText);
+      }).toList();
+
+      tabBarViews = semanas.map((semana) {
+        final tareas = tareasPorSemana[semana] ?? [];
+        return ListView.builder(
+          itemCount: tareas.length,
+          itemBuilder: (context, index) {
+            final tarea = tareas[index];
+            return TaskCard(
+              tarea: tarea,
+              onCompletar: () => marcarComoCompletada(tarea, semana),
+            );
+          },
+        );
+      }).toList();
+    }
+
     return DefaultTabController(
-      length: semanasTotales,
+      length: tabControllerLength, // Usar la longitud calculada
       child: Scaffold(
         appBar: AppBar(
           title: const Text(
-            'Tu Calendario de Estudio', // Título más atractivo
+            'Tu Calendario de Estudio',
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.w700,
@@ -84,10 +146,10 @@ class _TaskScreenState extends State<TaskScreen> {
               ],
             ),
           ),
-          backgroundColor: const Color(0xFF62A8EA), // Color de la app
+          backgroundColor: const Color(0xFF62A8EA),
           elevation: 0,
           centerTitle: true,
-          leading: Builder( // Botón para abrir el Drawer
+          leading: Builder(
             builder: (BuildContext context) {
               return IconButton(
                 icon: const Icon(Icons.menu, color: Colors.white),
@@ -124,20 +186,10 @@ class _TaskScreenState extends State<TaskScreen> {
               ],
             ),
             indicatorColor: Colors.white,
-            tabs: semanas.map((semana) {
-              String tabText;
-              if (semana == 1) {
-                tabText = 'Esta Semana'; // Texto más amigable
-              } else if (semana == 2) {
-                tabText = 'Próxima Semana'; // Texto más amigable
-              } else {
-                tabText = 'Semana $semana';
-              }
-              return Tab(text: tabText);
-            }).toList(),
+            tabs: tabs, // Usar las pestañas determinadas
           ),
         ),
-        drawer: Drawer( // El Drawer que contiene las opciones
+        drawer: Drawer(
           child: ListView(
             padding: EdgeInsets.zero,
             children: <Widget>[
@@ -149,7 +201,7 @@ class _TaskScreenState extends State<TaskScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Image.asset(
-                      'assets/images/logo.png', // Tu escudo
+                      'assets/images/logo.png',
                       height: 60,
                       width: 60,
                       fit: BoxFit.contain,
@@ -177,7 +229,7 @@ class _TaskScreenState extends State<TaskScreen> {
                 leading: const Icon(Icons.timer),
                 title: const Text('Pomodoro'),
                 onTap: () {
-                  Navigator.pop(context); // Cierra el drawer
+                  Navigator.pop(context);
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const PomodoroScreen()),
@@ -188,7 +240,7 @@ class _TaskScreenState extends State<TaskScreen> {
                 leading: const Icon(Icons.workspaces_outline),
                 title: const Text('Crear Flujo de Trabajo'),
                 onTap: () {
-                  Navigator.pop(context); // Cierra el drawer
+                  Navigator.pop(context);
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const WorkflowScreen()),
@@ -199,8 +251,8 @@ class _TaskScreenState extends State<TaskScreen> {
                 leading: const Icon(Icons.logout),
                 title: const Text('Cerrar Sesión'),
                 onTap: () {
-                  Navigator.pop(context); // Cierra el drawer
-                  Navigator.pushReplacement( // Reemplaza la pantalla actual
+                  Navigator.pop(context);
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => const LoginScreen()),
                   );
@@ -209,40 +261,24 @@ class _TaskScreenState extends State<TaskScreen> {
             ],
           ),
         ),
-        body: TabBarView(
-          children: semanas.map((semana) {
-            final tareas = tareasPorSemana[semana] ?? [];
-            if (tareas.isEmpty) {
-              return const Center(
-                child: Text(
-                  "¡Tiempo libre! No hay tareas pendientes esta semana.", // Mensaje más positivo
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black54,
-                    shadows: [
-                      Shadow(
-                        offset: Offset(0, 1),
-                        blurRadius: 3,
-                        color: Colors.black26,
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            }
-            return ListView.builder(
-              itemCount: tareas.length,
-              itemBuilder: (context, index) {
-                final tarea = tareas[index];
-                return TaskCard(
-                  tarea: tarea,
-                  onCompletar: () => marcarComoCompletada(tarea, semana),
-                );
-              },
-            );
-          }).toList(),
+        body: Column( // Envuelve el TabBarView en un Column
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0), // Añade un poco de padding alrededor de la mascota
+              child: DashatarMascot(
+                message: '¡Tienes Muchas Tareas Pendiente📝! a Trabajar💪 ', // Mensaje relevante para las tareas
+                dashatarHeight: 80, // Tamaño más pequeño para Dashatar
+                dashatarWidth: 200,
+                bubbleFontSize: 14, // Tamaño de fuente más pequeño para el globo
+                bubbleAlignment: BubbleAlignment.bottomCenter, // La punta apunta hacia abajo
+              ),
+            ),
+            Expanded( // Asegura que TabBarView ocupe el espacio restante
+              child: TabBarView(
+                children: tabBarViews, // Usar las vistas determinadas
+              ),
+            ),
+          ],
         ),
       ),
     );
